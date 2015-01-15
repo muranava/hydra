@@ -1,11 +1,5 @@
 <?php
 
-if ($_SERVER['HTTP_HOST'] != "kirilloid.ru") {
-    // proxy request to kirilloid.ru
-    echo file_get_contents("http://kirilloid.ru/hydra/search.php?" . $_SERVER['QUERY_STRING']);
-    die();
-}
-
 $config = parse_ini_file('config.ini', true);
 if (!$config) { die("Failed to read ini-file\n"); }
 
@@ -36,7 +30,7 @@ $mkey = 'english.query.page_ids:' . $pattern;
 $keys = $mem->get($mkey);
 if (!$keys) { $keys = array(); }
 
-$query =
+$query = 
     "SELECT * FROM `lines` " .
     "WHERE `lines`.`text` RLIKE " . $pdo->quote($pattern) .
     (   isset($keys[$page-1])

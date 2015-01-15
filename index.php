@@ -6,19 +6,11 @@
     </head>
     <body>
         <div class="container">
-<?php
-$pattern = '';
-if (isset($_GET['pattern'])) {
-    $pattern = $_GET['pattern'];
-}
-?>
             <form method="get" id="search">
                 <div class="input-group">
-                    <input class="form-control" placeholder="Pattern..." name="pattern"
-                        <?php if ($pattern) { echo 'value="' . str_replace("'", "&#39;", $pattern) . '"'; } ?>
-                    >
+                    <input class="form-control" placeholder="Pattern..." name="pattern">
                     <span class="input-group-btn">
-                        <button class="btn btn-default" type="button" onclick="this.form.submit();">Go!</button>
+                        <button class="btn btn-default" type="submit">Go!</button>
                     </span>
                 </div>
             </form>

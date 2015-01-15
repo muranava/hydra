@@ -23,7 +23,7 @@ class Application {
         this.view = new Search.View(DOM.q('#results'));
         this.searchForm = new Search.Form(<HTMLFormElement>DOM.q('#search'));
         this.infinite = new Search.InfiniteHelper();
-        this.loader = new Search.Loader('search.php');
+        this.loader = new Search.Loader(this.config['search.endpoint']);
         this.player = new YouTube.Player('player');
         (<HTMLAnchorElement>DOM.q('#feedback')).href = 
             'mailto:"' + this.config['contact.name'] + '"' +
@@ -42,7 +42,11 @@ class Application {
     protected exportFunctions (): void {
         var global = <any> window;
         global.playInterval = this.playInterval.bind(this);
-//        global.searchLoad = 
+        var m: RegExpMatchArray = location.search.match(/^\?pattern=([^&]+)/);
+        if (m) {
+            this.searchForm.setValue(m[1]);
+            this.search(m[1]);
+        }
     }
     protected search (pattern: string): void {
         this.view.newSearch(pattern);

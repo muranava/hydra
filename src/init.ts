@@ -4,7 +4,8 @@ DOM.ready(() => {
     var app: Application = new Application({
         'contact.name': 'Kirill Sukhomlin',
         'contact.email': atob('eWFAa2lyaWxsb2lkLnJ1'),
-        'contact.subject': 'Hydra tool'
+        'contact.subject': 'Hydra tool',
+        'search.endpoint': 'http://kirilloid.ru/hydra/search.php'
     });
     app.run();
 });

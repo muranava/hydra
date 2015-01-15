@@ -8,9 +8,14 @@ module Search {
                 this.onSearch(this.getValue());
             };
         }
+        protected getSearchInput(): HTMLInputElement {
+            return <HTMLInputElement>(<any>this.form).pattern;
+        }
         public getValue (): string {
-            var input = <HTMLInputElement>(<any>this.form).pattern;
-            return input.value;
+            return this.getSearchInput().value;
+        }
+        public setValue (value: string): void {
+            this.getSearchInput().value = value;
         }
         public onSearch (pattern: string): void {
         }
