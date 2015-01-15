@@ -2,6 +2,7 @@
 /// <reference path="ytplayer.d.ts" />
 module YouTube {
     export class Player {
+        private static playerId: string = 'player';
         private loaded: boolean;
 //         get loaded(): boolean { return this.loaded; }
         private key: string = null;
@@ -12,29 +13,30 @@ module YouTube {
         constructor (id: string) {
             this.playerId = id;
         }
-        private loadVideo (key: string, start: number, callback: () => void): void {
+        private loadVideo (key: string, callback: () => void): void {
             this.videoLoadCallback = callback;
-            this.player.loadVideoById(key, start, 'default');
+            this.player.loadVideoById(key, 0, 'default');
         }
         private loadPlayer (key: string, callback: () => void): void {
             this.key = key;
             onYouTubePlayerReady = (id) => {
-                this.player = <YT.Player><any>swfobject.getObjectById(id);
+                this.player = <YT.Player><any>swfobject.getObjectById(this.playerId);
                 this.player.addEventListener('onStateChange', 'execVideoLoadCallback');
-                (<any>window).execVideoLoadCallback = this.execVideoLoadCallback;
+                (<any>window).execVideoLoadCallback = this.execVideoLoadCallback.bind(this);
                 callback();
             };
             swfobject.embedSWF(
-                "http://www.youtube.com/v/" + key + "?enablejsapi=1&playerapiid=ytplayer&version=3",
-                "player", "480", "290", "8", null, null,
+                "http://www.youtube.com/v/" + key + "?enablejsapi=1&version=3",
+                this.playerId, "480", "290", "8", null, null,
                 { allowScriptAccess: "always" },
                 { id: this.playerId },
                 () => { this.loaded = true; }
             );
         }
         private execVideoLoadCallback (state: YT.PlayerState): void {
-            if (state === YT.PlayerState.VIDEO_CUED) {
+            if (state === YT.PlayerState.PLAYING) {
                 this.videoLoadCallback();
+                this.videoLoadCallback = null;
             }
         }
         private playActual (start: number, duration: number): void {
@@ -50,17 +52,14 @@ module YouTube {
             }, 200);
         }
         public playInterval (key: string, start: number, duration: number): void {
+            var fn = () => { this.playActual(start, duration); }
             if (!this.loaded) {
-                this.loadPlayer(key, () => {
-                    this.playActual(start, duration);
-                });
+                this.loadPlayer(key, fn);
             } else if (key !== this.key) {
                 this.key = key;
-                this.loadVideo(key, start, () => {
-                    this.playActual(start, duration);
-                });
+                this.loadVideo(key, fn);
             } else {
-                this.playActual(start, duration);
+                fn();
             }
         }
     }

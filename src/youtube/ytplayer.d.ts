@@ -18,7 +18,11 @@ declare module YT {
     }
     enum PlayerState {
         UNSTARTED = -1,
-        ENDED = 0, PLAYING, PAUSED, BUFFERING, VIDEO_CUED
+        ENDED = 0,
+        PLAYING = 1,
+        PAUSED = 2,
+        BUFFERING = 3,
+        VIDEO_CUED = 5
     }
 }
 declare var onYouTubePlayerReady: (playerId: string) => void;

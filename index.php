@@ -22,6 +22,7 @@ if (isset($_GET['pattern'])) {
                     </span>
                 </div>
             </form>
+            <a id="feedback" target="_blank">Contact via e-mail</a>
             <div id="playerwrapper">
                 <div id="player">YouTube player</div>
             </div>

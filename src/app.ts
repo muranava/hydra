@@ -9,7 +9,9 @@ class Application {
     private player: YouTube.Player;
     private infinite: Search.InfiniteHelper;
     private searchForm: Search.Form;
-    constructor () {
+    public config: any;
+    constructor (cfg: any) {
+        this.config = cfg;
         this.initComponents();
         this.bindComponents();
         this.exportFunctions();
@@ -23,6 +25,10 @@ class Application {
         this.infinite = new Search.InfiniteHelper();
         this.loader = new Search.Loader('search.php');
         this.player = new YouTube.Player('player');
+        (<HTMLAnchorElement>DOM.q('#feedback')).href = 
+            'mailto:"' + this.config['contact.name'] + '"' +
+            '<' + this.config['contact.email'] + '>' +
+            '?subject=' + this.config['contact.subject'];
     }
     protected bindComponents (): void {
         this.loader.onResultsLoad = (results) => {
