@@ -25,6 +25,8 @@ module Search {
             this.pattern = pattern;
             this.title = null;
             this.author = null;
+            this.videoEl = null;
+            this.channelEl = null;
             this.firstLoad = true;
         }
         private setAuthor (author: string): void {
