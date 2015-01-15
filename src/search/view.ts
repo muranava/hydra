@@ -72,7 +72,10 @@ module Search {
         public addResults (results: SearchItem[]): void {
             var el: HTMLElement,
                 hash: string = "";
-            if (this.firstLoad) { this.wrapper.innerHTML = ''; }
+            if (this.firstLoad) {
+                this.wrapper.innerHTML = '';
+                this.firstLoad = false;
+            }
             results.forEach(this.addLine.bind(this));
             this.wrapper.appendChild(this.channelEl);
             if (this.firstLoad && hash) {

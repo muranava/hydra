@@ -4,7 +4,7 @@ module Search {
         constructor () {
             DOM.ready(() => {
                 var b = document.body;
-                window.onscroll = function () {
+                window.onscroll = () => {
                     if (b.scrollHeight - (b.scrollTop + window.innerHeight) < 500) {
                         this.onEdge();
                     }
