@@ -1,0 +1,9 @@
+# build targets
+target
+js
+
+# node
+node_modules
+
+# configs
+config.ini

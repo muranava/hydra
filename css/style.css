@@ -1,0 +1,29 @@
+#playerwrapper {
+    width: 480px;
+    height: 290px;
+    position: fixed;
+    right: 20px;
+    color: gray;
+    line-height: 290px;
+    text-align: center;
+    font-size: 240%;
+    box-sizing: content-box;
+    font-family: sans-serif;
+    background: rgba(255, 255, 255, 0.8);
+    z-index: 1;
+}
+#results .header { cursor: pointer; }
+.block { padding-left: 10px; }
+#results mark { padding: .2em 0; }
+#results a {
+    display: inline-block;
+    margin: -5px 0 10px;
+    white-space: pre-line;
+}
+#results .collapsed > div,
+#results .collapsed > a,
+#results .collapsed > br { display: none; }
+@media screen and (max-width: 800px) {
+    #playerwrapper { right: auto; left: 10px; max-width: 95%; }
+    #results { padding-top: 300px; }
+}
