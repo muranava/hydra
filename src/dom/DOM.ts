@@ -51,6 +51,14 @@ module DOM {
         }, false);
     }
     export function ready (callback: (event?: Event) => void): void {
-        document.addEventListener('DOMContentLoaded', callback, false);
+        switch (document.readyState) {
+        case 'loading':
+            document.addEventListener('DOMContentLoaded', callback, false);
+            break;
+        case 'interactive':
+        case 'complete':
+            callback();
+            break;
+        }
     }
 }
