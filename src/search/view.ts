@@ -54,17 +54,14 @@ module Search {
             var id: string = item.key + "/" + item.order,
                 a = DOM.el(
                     'a',
-                    { onclick: 'playInterval("' + item.key + '",' + item.start + ',' + item.duration + ')',
-                      id: id,
-                      href: '#' + id },
-                    DOM.esc(
-                        item.text.replace(
-                            new RegExp(this.pattern),
-                            "\u2039$&\u203A"
-                        )
+                    {   onclick: 'playInterval("' + item.key + '",' + item.start + ',' + item.duration + ')',
+                        id: id,
+                        href: '#' + id
+                    },
+                    item.text.replace(
+                        new RegExp(this.pattern),
+                        "<mark>$&</mark>"
                     )
-                        .replace(/\u2039/g, '<mark>')
-                        .replace(/\u203A/g, '</mark>')
                 );
             this.videoEl.appendChild(a);
             this.videoEl.appendChild(DOM.el('br'));
