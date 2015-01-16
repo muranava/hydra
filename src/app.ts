@@ -45,7 +45,6 @@ class Application {
         var m: RegExpMatchArray = location.search.match(/^\?pattern=([^&]+)/);
         if (m) {
             this.searchForm.setValue(m[1]);
-            this.search(m[1]);
         }
     }
     protected search (pattern: string): void {
