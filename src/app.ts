@@ -25,7 +25,7 @@ class Application {
         this.infinite = new Search.InfiniteHelper();
         this.loader = new Search.Loader(this.config['search.endpoint']);
         this.player = new YouTube.Player('player');
-        (<HTMLAnchorElement>DOM.q('#feedback')).href = 
+        (<HTMLAnchorElement>DOM.q('#feedback')).href =
             'mailto:"' + this.config['contact.name'] + '"' +
             '<' + this.config['contact.email'] + '>' +
             '?subject=' + this.config['contact.subject'];
@@ -44,7 +44,7 @@ class Application {
         global.playInterval = this.playInterval.bind(this);
         var m: RegExpMatchArray = location.search.match(/^\?pattern=([^&]+)/);
         if (m) {
-            this.searchForm.setValue(m[1]);
+            this.searchForm.setValue(decodeURIComponent(m[1]));
         }
     }
     protected search (pattern: string): void {
